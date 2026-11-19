@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: lab5-soa-integration
+  modulith:
+    events:
+      jdbc:
+        schema-initialization:
+          enabled: true
+  task:
+    execution:
+      thread-name-prefix: "event-"
+
+logging:
+  level:
+    root: INFO
+    soa: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%-13.13thread] %-5level %logger{36} - %msg%n"
+
