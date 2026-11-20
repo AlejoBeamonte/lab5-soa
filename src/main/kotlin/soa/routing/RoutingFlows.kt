@@ -7,7 +7,6 @@ import org.springframework.integration.dsl.IntegrationFlow
 import org.springframework.integration.dsl.MessageChannels
 import org.springframework.integration.dsl.integrationFlow
 import soa.numbers.NumberData
-import soa.odd.OddNumberData
 
 private val logger = LoggerFactory.getLogger("soa.Lab5")
 
@@ -26,7 +25,7 @@ class RoutingFlows {
     fun routerFlow(): IntegrationFlow =
         integrationFlow("numberChannel") {
             route { m: NumberData ->
-                val channel = if (runCatching { OddNumberData(m.data) }.isSuccess) "oddChannel" else "evenChannel"
+                val channel = if (m.data % 2 == 0) "evenChannel" else "oddChannel"
                 logger.info("🔀 Router: {} → {}", m.data, channel)
                 channel
             }
