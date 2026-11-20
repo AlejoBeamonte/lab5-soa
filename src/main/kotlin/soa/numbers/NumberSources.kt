@@ -28,6 +28,7 @@ class NumberSources(
 
     /** Every second, a negative random number. */
     @Scheduled(fixedRate = 1000)
+    @Transactional
     fun publishNegative() {
         val n = -Random.nextInt(1, 100)
         logger.info("🚀 Source generated negative number: {}", n)
