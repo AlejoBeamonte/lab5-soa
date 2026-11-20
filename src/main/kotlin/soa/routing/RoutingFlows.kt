@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.integration.dsl.IntegrationFlow
 import org.springframework.integration.dsl.MessageChannels
-import org.springframework.integration.dsl.PublishSubscribeChannelSpec
 import org.springframework.integration.dsl.integrationFlow
 import soa.numbers.NumberData
 import soa.odd.OddNumberData
@@ -14,9 +13,13 @@ private val logger = LoggerFactory.getLogger("soa.Lab5")
 
 @Configuration
 class RoutingFlows {
-    /** A publish-subscribe channel for even numbers. */
+    /** A point-to-point channel for even numbers. */
     @Bean
-    fun evenChannel(): PublishSubscribeChannelSpec<*> = MessageChannels.publishSubscribe()
+    fun evenChannel() = MessageChannels.direct()
+
+    /** A publish-subscribe channel for odd numbers. */
+    @Bean
+    fun oddChannel() = MessageChannels.publishSubscribe()
 
     /** Routes every number by parity. Odd numbers are the ones the odd module accepts. */
     @Bean
